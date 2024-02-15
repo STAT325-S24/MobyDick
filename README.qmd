@@ -1,6 +1,6 @@
 ---
-title: "XX DATA PACKAGE"
-author: "YOUR NAME"
+title: "MobyDick"
+author: "Adam Rogers"
 date: "2024-01-01"
 date-format: iso
 format: gfm
@@ -21,7 +21,7 @@ The package is interesting because XX, YY, and ZZ.
 The XX package can be installed by running:
 
 ```
-devtools::install_github("nicholasjhorton/DiscGolf")
+devtools::install_github("arogers24/MobyDick")
 library(DiscGolf)
 ```
 

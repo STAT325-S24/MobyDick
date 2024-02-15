@@ -4,3 +4,4 @@
 ^data-raw$
 resources
 README.qmd
+^.*\.Rproj$

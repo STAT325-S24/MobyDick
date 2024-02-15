@@ -1,9 +1,14 @@
 ## code to prepare `DATASET` dataset goes here
 
 library(tidyverse)
-foo <- tibble(
-  lines = c("this is a test", "this is only a test"),
-  author = c("me", "you")
-)
-usethis::use_data(foo, overwrite = TRUE)
+library(gutenbergr)
+
+my_mirror <- "http://mirror.csclub.uwaterloo.ca/gutenberg/"
+mobydick <- gutenberg_download(15, mirror = my_mirror)
+
+MobyDick <- tibble(mobydick) |>
+  select(text)
+
+usethis::use_data(MobyDick, overwrite = TRUE)
+
 
