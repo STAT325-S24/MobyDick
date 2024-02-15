@@ -11,18 +11,17 @@ editor: source
 #| label: setup
 #| include: false
 library(tidyverse)
-library(DiscGolf)
 ```
 
-This file describes the XX package.
+This file describes the MobyDick package.
 
-The package is interesting because XX, YY, and ZZ.
+The package loads a tibble with the text of Moby Dick along with line number, the section of text our line is found, and the chapter number.
 
-The XX package can be installed by running:
+The MobyDick package can be installed by running:
 
 ```
 devtools::install_github("arogers24/MobyDick")
-library(DiscGolf)
+library(MobyDick)
 ```
 
 ```{r}

@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Adam", "Rogers", , "arogers24@amherst.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package returns a tibble with every line from the text of Moby Dick. 
+Description: This package returns a tibble with every line from the text of Moby Dick along with line number, text section, and chapter number. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
