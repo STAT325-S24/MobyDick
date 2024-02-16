@@ -6,6 +6,7 @@ library(gutenbergr)
 my_mirror <- "http://mirror.csclub.uwaterloo.ca/gutenberg/"
 mobydick <- gutenberg_download(15, mirror = my_mirror)
 
+
 MobyDick <- tibble(mobydick) |>
   select(text) |>
   mutate(line_number = row_number(),

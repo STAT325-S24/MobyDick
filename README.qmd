@@ -11,6 +11,7 @@ editor: source
 #| label: setup
 #| include: false
 library(tidyverse)
+library(DiscGolf)
 ```
 
 This file describes the MobyDick package.
@@ -20,7 +21,7 @@ The package loads a tibble with the text of Moby Dick along with line number, th
 The MobyDick package can be installed by running:
 
 ```
-devtools::install_github("arogers24/MobyDick")
+devtools::install_github("STAT325-S24/MobyDick")
 library(MobyDick)
 ```
 
