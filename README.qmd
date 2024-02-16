@@ -11,7 +11,7 @@ editor: source
 #| label: setup
 #| include: false
 library(tidyverse)
-library(DiscGolf)
+# library(DiscGolf)
 ```
 
 This file describes the MobyDick package.
@@ -26,13 +26,7 @@ library(MobyDick)
 ```
 
 ```{r}
-glimpse(DiscGolf)
+# glimpse(DiscGolf)
 ```
 
-Here are some sample analyses:
-
-XX
-
-YY
-
-ZZ
+This README will soon include some interesting analyses.
