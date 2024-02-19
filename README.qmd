@@ -20,12 +20,12 @@ The package loads a tibble with the text of Moby Dick along with line number, th
 The MobyDick package can be installed by running:
 
 ```
-devtools::install_github("STAT325-S24/MobyDick")
+devtools::install_github("arogers24/MobyDick")
 ```
 
 ```{r}
-library(MobyDick)
-glimpse(MobyDick)
+# library(MobyDick)
+# glimpse(MobyDick)
 ```
 
 This README will soon include some interesting analyses.
