@@ -1,7 +1,7 @@
 ---
 title: "MobyDick"
 author: "Adam Rogers"
-date: "2024-01-01"
+date: "2024-02-19"
 date-format: iso
 format: gfm
 editor: source
@@ -11,10 +11,9 @@ editor: source
 #| label: setup
 #| include: false
 library(tidyverse)
-# library(DiscGolf)
 ```
 
-This file describes the MobyDick package.
+This file describes the `MobyDick` data package.
 
 The package loads a tibble with the text of Moby Dick along with line number, the section of text our line is found, and the chapter number.
 
@@ -22,11 +21,11 @@ The MobyDick package can be installed by running:
 
 ```
 devtools::install_github("STAT325-S24/MobyDick")
-library(MobyDick)
 ```
 
 ```{r}
-# glimpse(DiscGolf)
+library(MobyDick)
+glimpse(MobyDick)
 ```
 
 This README will soon include some interesting analyses.
