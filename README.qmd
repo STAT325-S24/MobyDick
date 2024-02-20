@@ -24,8 +24,8 @@ devtools::install_github("arogers24/MobyDick")
 ```
 
 ```{r}
-# library(MobyDick)
-# glimpse(MobyDick)
+library(MobyDick)
+glimpse(MobyDick)
 ```
 
 This README will soon include some interesting analyses.
