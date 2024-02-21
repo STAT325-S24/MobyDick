@@ -3,5 +3,6 @@
 ^LICENSE\.md$
 ^data-raw$
 resources
+vignette
 README.qmd
 ^.*\.Rproj$
