@@ -1,9 +1,8 @@
 Package: MobyDick
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.1.0
+Title: Text of Melville's Moby Dick
+Version: 0.1.0
 Authors@R: 
-    person("Adam", "Rogers", , "arogers24@amherst.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Adam", "Rogers", , "arogers24@amherst.edu", role = c("aut", "cre"))
 Description: This package returns a tibble with every line from the text of Moby Dick along with line number, text section, and chapter number. 
 License: MIT + file LICENSE
 Encoding: UTF-8
