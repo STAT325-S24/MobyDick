@@ -3,7 +3,7 @@
 \docType{data}
 \name{MobyDick}
 \alias{MobyDick}
-\title{My data}
+\title{MobyDick}
 \format{
 \subsection{\code{MobyDick}}{
 
@@ -18,13 +18,13 @@ A data frame with 22243 rows and 1 column:
 }
 }
 \source{
-\url{https://www.who.int/teams/global-tuberculosis-programme/data}
+\url{https://www.gutenberg.org/ebooks/15}
 }
 \usage{
 MobyDick
 }
 \description{
-This is more descriptive text about my data.
-Even more info is provided here ...
+This package returns a tibble with every line from the text of Moby Dick
+along with line number, text section, and chapter number.
 }
 \keyword{datasets}

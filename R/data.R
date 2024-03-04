@@ -1,7 +1,7 @@
-#' My data
+#' MobyDick
 #'
-#' This is more descriptive text about my data.
-#' Even more info is provided here ...
+#' This package returns a tibble with every line from the text of Moby Dick 
+#' along with line number, text section, and chapter number. 
 #'
 #' @format ## `MobyDick`
 #' A data frame with 22243 rows and 1 column:
