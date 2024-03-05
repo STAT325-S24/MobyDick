@@ -17,13 +17,36 @@ library(nametagger)
 library(tictoc)
 ```
 
+```{r}
+file_name <- "anno_moby.Rds"
+stopifnot(file.exists(file_name))
+anno <- readRDS(file_name)
+```
+
+```{r}
+token_with_chapters <- anno$token |>
+  mutate(chapter_number = cumsum(str_detect(token, 
+                                            regex("^CHAPTER",
+                                                  ignore_case = FALSE)) & tid == 1))
+
+test <- token_with_chapters |>
+  filter(chapter_number > 32)
+  
+```
 
 
 ```{r}
-#| cache: true
-#| label: download_model
-# see https://ufal.mff.cuni.cz/nametag/1/users-manual
-model <- nametagger_download_model("english-conll-140408", model_dir = tempdir())
+to_plot <- token_with_chapters |>
+  group_by(chapter_number) |>
+  summarize(total = n(),
+            noun_count = sum(ifelse(upos == "ADJ", 1, 0)),
+            prop_noun = noun_count/total,
+            .groups = "drop") |>
+  filter(total > 10, prop_noun > 0)
+
+ggplot(to_plot, aes(x = chapter_number, y = prop_noun)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
 ```
 
 ```{r}
