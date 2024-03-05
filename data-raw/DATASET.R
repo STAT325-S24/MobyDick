@@ -16,8 +16,11 @@ MobyDick <- tibble(mobydick) |>
                                         ifelse(row_number() < 664, "extracts",
                                                "text")))),
          chapter_number = cumsum(str_detect(text, 
-                                     regex("^CHAPTER [\\dIVXLC]",
-                                           ignore_case = TRUE))))
+                                            regex("^CHAPTER [\\dIVXLC]",
+                                                  ignore_case = TRUE))),
+         paragraph_number = cumsum(ifelse(section == "text", 
+                                          str_detect(text, regex("^$")), 
+                                          0)))
 
 
 usethis::use_data(MobyDick, overwrite = TRUE)
