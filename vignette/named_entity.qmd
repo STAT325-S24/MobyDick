@@ -51,14 +51,25 @@ token_type_summary <- token_with_chapters |>
             conj_prop = conj_count/total,
             .groups = "drop")
 
-entity_type_summary <- entity_with_chapters |>
+entity_type_summary_no_total <- entity_with_chapters |>
   group_by(chapter_number) |>
   summarize(person_count = sum(ifelse(entity_type == "PERSON", 1, 0)),
+            location_count = sum(ifelse(entity_type == "LOC", 1, 0)),
+            time_count = sum(ifelse(entity_type == "TIME", 1, 0)),
+            date_count = sum(ifelse(entity_type == "DATE", 1, 0)),
             .groups = "drop")
-entity_type_summary <- inner_join(entity_type_summary, token_type_summary, by = "chapter_number") |>
-  select(chapter_number, total, person_count)
+entity_type_summary <- inner_join(entity_type_summary_no_total, token_type_summary, by = "chapter_number") |>
+  select(chapter_number, total, person_count, location_count, time_count, date_count) |>
+  mutate(person_prop = person_count/total,
+         location_prop = location_count/total,
+         time_prop = time_count/total,
+         date_prop = date_count/total)
 
-ggplot(token_type_summary, aes(x = chapter_number, y = verb_prop)) +
-  geom_point() +
-  geom_smooth(se = FALSE)
+write_csv(token_type_summary, "../token_type_summary.csv")
+
+paste0("noun", "_count")
+
+# ggplot(token_type_summary, aes(x = chapter_number, y = verb_prop)) +
+#   geom_point() +
+#   geom_smooth(se = FALSE)
 ```
