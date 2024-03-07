@@ -25,30 +25,40 @@ anno <- readRDS(file_name)
 
 ```{r}
 token_with_chapters <- anno$token |>
-  mutate(chapter_number = cumsum(str_detect(token, 
-                                            regex("^CHAPTER",
-                                                  ignore_case = FALSE)) & tid == 1))
+  mutate(chapter_number = 
+           cumsum(str_detect(token, regex("^CHAPTER", ignore_case = FALSE)) & tid == 1))
 
-test <- token_with_chapters |>
-  filter(chapter_number > 32)
-  
+entity_with_chapters <- left_join(anno$entity, 
+                                  token_with_chapters, 
+                                  by = c("doc_id", "sid", "tid")) |>
+  select(entity_type, entity, chapter_number)
 ```
 
 
 ```{r}
-to_plot <- token_with_chapters |>
+token_type_summary <- token_with_chapters |>
   group_by(chapter_number) |>
   summarize(total = n(),
-            noun_count = sum(ifelse(upos == "ADJ", 1, 0)),
-            prop_noun = noun_count/total,
-            .groups = "drop") |>
-  filter(total > 10, prop_noun > 0)
+            noun_count = sum(ifelse(upos == "NOUN", 1, 0)),
+            noun_prop = noun_count/total,
+            adj_count = sum(ifelse(upos == "ADJ", 1, 0)),
+            adj_prop = adj_count/total,
+            verb_count = sum(ifelse(upos == "VERB", 1, 0)),
+            verb_prop = verb_count/total,
+            proper_noun_count = sum(ifelse(upos == "PROPN", 1, 0)),
+            proper_noun_prop = proper_noun_count/total,
+            conj_count = sum(ifelse(upos == "CCONJ" | upos == "SCONJ", 1, 0)),
+            conj_prop = conj_count/total,
+            .groups = "drop")
 
-ggplot(to_plot, aes(x = chapter_number, y = prop_noun)) +
+entity_type_summary <- entity_with_chapters |>
+  group_by(chapter_number) |>
+  summarize(person_count = sum(ifelse(entity_type == "PERSON", 1, 0)),
+            .groups = "drop")
+entity_type_summary <- inner_join(entity_type_summary, token_type_summary, by = "chapter_number") |>
+  select(chapter_number, total, person_count)
+
+ggplot(token_type_summary, aes(x = chapter_number, y = verb_prop)) +
   geom_point() +
   geom_smooth(se = FALSE)
 ```
-
-```{r}
-# load your data package data
-# run the named entity recognition model
