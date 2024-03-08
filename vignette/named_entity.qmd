@@ -77,7 +77,10 @@ token_type_summary |>
              ) |>
       arrange(desc(noun_prop))
 
-paste0("noun", "_count")
+to_print <- MobyDick |>
+  filter(chapter_number == 45)
+      
+paste(to_print$text, collapse = "")
 
 fig <- plot_ly(data = token_type_summary, x = ~chapter_number, y = ~noun_prop, type = "scatter")
 
