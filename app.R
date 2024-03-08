@@ -67,10 +67,6 @@ server <- function(input, output) {
     fig
   })
   
-  # output$selected_point <- renderUI({
-  #   tags$script(HTML('hiya'))
-  # })
-  
   output$selected_point <- renderPrint({
     selected_point <- event_data("plotly_click", source = "myPlotSource")
     if (!is.null(selected_point)) {
@@ -81,16 +77,6 @@ server <- function(input, output) {
       "Click on a point to see its information"
     }
   })
-  
-  # myPlotEventData <- reactive({
-  #   event_data(
-  #     event = "plotly_click",
-  #     source = "myPlotSource")
-  # })
-  # output$text <- renderText({
-  #   myPlotEventData()$chapter_number[1]
-  #   
-  # })
 }
 
 shinyApp(ui = ui, server = server)
