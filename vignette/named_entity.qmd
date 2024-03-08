@@ -67,7 +67,19 @@ entity_type_summary <- inner_join(entity_type_summary_no_total, token_type_summa
 
 write_csv(token_type_summary, "../token_type_summary.csv")
 
+
+
+token_type_summary |>
+      select(chapter_number,
+             total,
+             noun_count,
+             noun_prop
+             ) |>
+      arrange(desc(noun_prop))
+
 paste0("noun", "_count")
+
+fig <- plot_ly(data = token_type_summary, x = ~chapter_number, y = ~noun_prop, type = "scatter")
 
 # ggplot(token_type_summary, aes(x = chapter_number, y = verb_prop)) +
 #   geom_point() +
