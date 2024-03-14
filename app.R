@@ -24,8 +24,11 @@ ui <- fluidPage(
                    choices = list("Noun" = "NOUN", 
                                   "Adjective" = "ADJ",
                                   "Verb" = "VERB",
+                                  "Adverb" = "ADV",
                                   "Proper Noun" = "PROPN",
-                                  "Conjunction" = "CONJ"), 
+                                  "Conjunction" = "CONJ",
+                                  "Pronoun" = "PRON",
+                                  "Punctuation" = "PUNCT"), 
                    selected = "NOUN")
       
     ),
@@ -76,15 +79,13 @@ server <- function(input, output) {
   output$selected_point <- renderPrint({
     selected_point <- event_data("plotly_click", source = "myPlotSource")
     if (!is.null(selected_point)) {
-      token_with_chapters2 <- token_with_chapters |>
+      annotated_text <- token_with_chapters |>
         filter(chapter_number == selected_point[2]$pointNumber + 1) |>
         mutate(token = 
                  if_else(upos %in% ifelse(input$part_of_speech == "CONJ", 
                                           c("CCONJ", "SCONJ"), 
                                           c(input$part_of_speech)), 
-                         paste0("<b>", token, "</b>"), token))
-      
-      annotated_text <- token_with_chapters2 |>
+                         paste0("<b>", token, "</b>"), token)) |>
         arrange(doc_id, sid, tid) |> 
         group_by(doc_id, sid) |>
         mutate(space_after = ifelse(lead(upos, default = " ") == "PUNCT", 
