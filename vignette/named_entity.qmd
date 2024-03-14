@@ -46,10 +46,16 @@ token_type_summary <- token_with_chapters |>
             ADJ_prop = ADJ_count/total,
             VERB_count = sum(ifelse(upos == "VERB", 1, 0)),
             VERB_prop = VERB_count/total,
+            ADV_count = sum(ifelse(upos == "ADV", 1, 0)),
+            ADV_prop = ADV_count/total,
             PROPN_count = sum(ifelse(upos == "PROPN", 1, 0)),
             PROPN_prop = PROPN_count/total,
             CONJ_count = sum(ifelse(upos == "CCONJ" | upos == "SCONJ", 1, 0)),
             CONJ_prop = CONJ_count/total,
+            PRON_count = sum(ifelse(upos == "PRON", 1, 0)),
+            PRON_prop = PRON_count/total,
+            PUNCT_count = sum(ifelse(upos == "PUNCT", 1, 0)),
+            PUNCT_prop = PUNCT_count/total,
             .groups = "drop")
 
 entity_type_summary_no_total <- entity_with_chapters |>
