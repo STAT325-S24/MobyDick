@@ -7,8 +7,8 @@ library(DT)
 library(MobyDick)
 
 # Load in necessary data
-token_type_summary <- read_csv("token_type_summary.csv")
-token_with_chapters <- read_csv("token_with_chapters.csv")
+token_type_summary <- read_csv("wrangling/token_type_summary.csv")
+token_with_chapters <- read_csv("wrangling/token_with_chapters.csv")
 
 ui <- fluidPage(
   
@@ -80,7 +80,9 @@ server <- function(input, output) {
     selected_point <- event_data("plotly_click", source = "myPlotSource")
     if (!is.null(selected_point)) {
       annotated_text <- token_with_chapters |>
+        # Get chapter by number
         filter(chapter_number == selected_point[2]$pointNumber + 1) |>
+        # Add bold to specified part of speech
         mutate(token = 
                  if_else(upos %in% ifelse(input$part_of_speech == "CONJ", 
                                           c("CCONJ", "SCONJ"), 
@@ -88,12 +90,15 @@ server <- function(input, output) {
                          paste0("<b>", token, "</b>"), token)) |>
         arrange(doc_id, sid, tid) |> 
         group_by(doc_id, sid) |>
+        # Add spaces after words, but not when next token is punctuation
         mutate(space_after = ifelse(lead(upos, default = " ") == "PUNCT", 
                                     "", " "),
                word_with_space = paste(token, space_after, sep = "")) |>
+        # Combine words to sentence
         summarise(sentence = paste(word_with_space, collapse = ""), 
                   .groups = 'drop') |> 
         group_by(doc_id) |>
+        # Combine sentences to paragraphs
         summarise(paragraph = paste(sentence, collapse = " "), 
                   .groups = 'drop')
       
