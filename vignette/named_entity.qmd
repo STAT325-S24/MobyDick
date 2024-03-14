@@ -15,6 +15,7 @@ library(tidyverse)
 library(tidytext)
 library(nametagger)
 library(tictoc)
+library(MobyDick)
 ```
 
 ```{r}
@@ -39,16 +40,16 @@ entity_with_chapters <- left_join(anno$entity,
 token_type_summary <- token_with_chapters |>
   group_by(chapter_number) |>
   summarize(total = n(),
-            noun_count = sum(ifelse(upos == "NOUN", 1, 0)),
-            noun_prop = noun_count/total,
-            adj_count = sum(ifelse(upos == "ADJ", 1, 0)),
-            adj_prop = adj_count/total,
-            verb_count = sum(ifelse(upos == "VERB", 1, 0)),
-            verb_prop = verb_count/total,
-            proper_noun_count = sum(ifelse(upos == "PROPN", 1, 0)),
-            proper_noun_prop = proper_noun_count/total,
-            conj_count = sum(ifelse(upos == "CCONJ" | upos == "SCONJ", 1, 0)),
-            conj_prop = conj_count/total,
+            NOUN_count = sum(ifelse(upos == "NOUN", 1, 0)),
+            NOUN_prop = NOUN_count/total,
+            ADJ_count = sum(ifelse(upos == "ADJ", 1, 0)),
+            ADJ_prop = ADJ_count/total,
+            VERB_count = sum(ifelse(upos == "VERB", 1, 0)),
+            VERB_prop = VERB_count/total,
+            PROPN_count = sum(ifelse(upos == "PROPN", 1, 0)),
+            PROPN_prop = PROPN_count/total,
+            CONJ_count = sum(ifelse(upos == "CCONJ" | upos == "SCONJ", 1, 0)),
+            CONJ_prop = CONJ_count/total,
             .groups = "drop")
 
 entity_type_summary_no_total <- entity_with_chapters |>
@@ -65,26 +66,11 @@ entity_type_summary <- inner_join(entity_type_summary_no_total, token_type_summa
          time_prop = time_count/total,
          date_prop = date_count/total)
 
+write_csv(token_with_chapters, "../token_with_chapters.csv")
 write_csv(token_type_summary, "../token_type_summary.csv")
+```
 
 
-
-token_type_summary |>
-      select(chapter_number,
-             total,
-             noun_count,
-             noun_prop
-             ) |>
-      arrange(desc(noun_prop))
-
-to_print <- MobyDick |>
-  filter(chapter_number == 45)
-      
-paste(to_print$text, collapse = "")
-
-fig <- plot_ly(data = token_type_summary, x = ~chapter_number, y = ~noun_prop, type = "scatter")
-
-# ggplot(token_type_summary, aes(x = chapter_number, y = verb_prop)) +
-#   geom_point() +
-#   geom_smooth(se = FALSE)
+```{r}
+unique(token_with_chapters$upos)
 ```
