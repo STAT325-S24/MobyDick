@@ -1,7 +1,7 @@
 ---
-title: "STAT325: named entity recognition analysis of XX"
-author: "XX YOUR NAME HERE XX"
-date: "2024-02-22"
+title: "STAT325: MobyDick Shiny App Pre-Processing"
+author: "XX Adam Rogers XX"
+date: "2024-03-15"
 date-format: iso
 format: pdf
 editor: source
@@ -26,8 +26,11 @@ anno <- readRDS(file_name)
 
 ```{r}
 token_with_chapters <- anno$token |>
+  # Add chapter number to tokenized text
+  # Use tid == 1 to avoid edge case where text "CHAPTER" is within a chapter
   mutate(chapter_number = 
-           cumsum(str_detect(token, regex("^CHAPTER", ignore_case = FALSE)) & tid == 1))
+           cumsum(str_detect(token, 
+                             regex("^CHAPTER", ignore_case = FALSE)) & tid == 1))
 
 entity_with_chapters <- left_join(anno$entity, 
                                   token_with_chapters, 
@@ -65,6 +68,7 @@ entity_type_summary_no_total <- entity_with_chapters |>
             time_count = sum(ifelse(entity_type == "TIME", 1, 0)),
             date_count = sum(ifelse(entity_type == "DATE", 1, 0)),
             .groups = "drop")
+
 entity_type_summary <- inner_join(entity_type_summary_no_total, token_type_summary, by = "chapter_number") |>
   select(chapter_number, total, person_count, location_count, time_count, date_count) |>
   mutate(person_prop = person_count/total,
@@ -72,11 +76,16 @@ entity_type_summary <- inner_join(entity_type_summary_no_total, token_type_summa
          time_prop = time_count/total,
          date_prop = date_count/total)
 
-write_csv(token_with_chapters, "../token_with_chapters.csv")
-write_csv(token_type_summary, "../token_type_summary.csv")
+write_csv(token_with_chapters, "token_with_chapters.csv")
+write_csv(token_type_summary, "token_type_summary.csv")
 ```
 
 
 ```{r}
 unique(token_with_chapters$upos)
+
+
+# Limitation: data isn't in R folder
+# Paragraphs aren't cleaned up (no new lines)
+
 ```
