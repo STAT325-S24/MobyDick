@@ -13,8 +13,6 @@ editor: source
 library(mosaic)
 library(tidyverse)
 library(tidytext)
-library(nametagger)
-library(tictoc)
 library(MobyDick)
 ```
 
