@@ -1,6 +1,6 @@
 Package: MobyDick
 Title: Text of Melville's Moby Dick
-Version: 0.1.0
+Version: 0.2
 Authors@R: 
     person("Adam", "Rogers", , "arogers24@amherst.edu", role = c("aut", "cre"))
 Description: This package returns a tibble with every line from the text of Moby Dick along with line number, text section, and chapter number. 
