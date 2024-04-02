@@ -6,10 +6,6 @@ library(stringr)
 library(DT)
 library(MobyDick)
 
-# Load in necessary data
-token_type_summary <- read_csv("../wrangling/token_type_summary.csv")
-token_with_chapters <- read_csv("../wrangling/token_with_chapters.csv")
-
 ui <- fluidPage(
   
   titlePanel("Moby Dick"),
@@ -76,25 +72,25 @@ server <- function(input, output) {
     if (selected_pos == "NOUN") {
       return(HTML("A <b>noun</b> names a person, place, thing, or idea. <i>(Ex: pen, chair, ram, honesty)</i>"))
     } else if (selected_pos == "ADJ") {
-      return(HTML("An <b>adjective/b> describes or modifies a noun or pronoun. <i>(Ex: super, red, our, big, great)</i>"))
+      return(HTML("An <b>adjective</b> describes or modifies a noun or pronoun. <i>(Ex: super, red, our, big, great)</i>"))
     } else if (selected_pos == "VERB") {
-      return(HTML("A <b>verb/b> indicates a state of doing, being, or having. <i>(Ex: play, be, work, love, like)</i>"))
+      return(HTML("A <b>verb</b> indicates a state of doing, being, or having. <i>(Ex: play, be, work, love, like)</i>"))
     } else if (selected_pos == "ADV") {
-      return(HTML("An <b>adverb/b> describes or modifies verbs, adjectives, and other adverbs. <i>(Ex: silently, too, very)</i>"))
+      return(HTML("An <b>adverb</b> describes or modifies verbs, adjectives, and other adverbs. <i>(Ex: silently, too, very)</i>"))
     } else if (selected_pos == "PROPN") {
-      return(HTML("A <b>proper noun/b> is the name of a particular person, place, organization, or thing. <i>(Ex: Buckingham Palace, Cynthia, National Geographic)</i>"))
+      return(HTML("A <b>proper noun</b> is the name of a particular person, place, organization, or thing. <i>(Ex: Buckingham Palace, Cynthia, National Geographic)</i>"))
     } else if (selected_pos == "CONJ") {
-      return(HTML("A <b>conjunction/b> links words, phrases, and clauses. <i>(Ex: and, but, though, after)</i>"))
+      return(HTML("A <b>conjunction</b> links words, phrases, and clauses. <i>(Ex: and, but, though, after)</i>"))
     } else if (selected_pos == "PRON") {
-      return(HTML("A <b>pronoun/b> is used in place of a noun. <i>(Ex: I, you, he, she, it, they)</i>"))
+      return(HTML("A <b>pronoun</b> is used in place of a noun. <i>(Ex: I, you, he, she, it, they)</i>"))
     } else if (selected_pos == "PUNCT") {
-      return(HTML("<b>Punctuation/b> refers to the tools used in writing to separate sentences, phrases, and clauses so that their intended meaning is clear. (Ex: . , ? ! ; :)</i>"))
+      return(HTML("<b>Punctuation</b> refers to the tools used in writing to separate sentences, phrases, and clauses so that their intended meaning is clear. (Ex: . , ? ! ; :)</i>"))
     }
   })
   
   # table output
   output$table <- renderDataTable({
-    to_display <- token_type_summary |>
+    to_display <- MobyDick::token_type_summary |>
       select(chapter_number,
              total,
              paste0(input$part_of_speech, "_count"),
@@ -107,7 +103,7 @@ server <- function(input, output) {
   
   # plot output
   output$plot <- renderPlotly({
-    fig <- plot_ly(data = token_type_summary, 
+    fig <- plot_ly(data = MobyDick::token_type_summary, 
                    x = ~chapter_number, 
                    y = ~get(paste0(input$part_of_speech, "_prop")), 
                    type = "scatter",
