@@ -22,7 +22,14 @@ MobyDick <- tibble(mobydick) |>
                                           str_detect(text, regex("^$")), 
                                           0)))
 
+anno_moby <- readRDS("data-raw/anno_moby.Rds")
+token_with_chapters <- readRDS("data-raw/token_with_chapters.Rds")
+token_type_summary <- readRDS("data-raw/token_type_summary.Rds")
+
 
 usethis::use_data(MobyDick, overwrite = TRUE)
+usethis::use_data(anno_moby, overwrite = TRUE)
+usethis::use_data(token_with_chapters, overwrite = TRUE)
+usethis::use_data(token_type_summary, overwrite = TRUE)
 
 

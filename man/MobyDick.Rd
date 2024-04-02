@@ -24,7 +24,7 @@ A data frame with 22243 rows and 1 column:
 MobyDick
 }
 \description{
-This package returns a tibble with every line from the text of Moby Dick
+This data frame returns a tibble with every line from the text of Moby Dick
 along with line number, text section, and chapter number.
 }
 \keyword{datasets}
